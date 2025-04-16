@@ -27,6 +27,8 @@ type TListsContext = {
   handleDeleteList: (id: string) => void;
   handleDeleteItem: (id: string) => void;
   isLoading: boolean;
+  focusAddItemInput?: () => void;
+  setfocusAddItemInput?: (fn: () => void) => void;
 };
 
 export const ListsContext = createContext<TListsContext | null>(null);
@@ -53,6 +55,9 @@ export default function ListsContextProvider({
   const [pendingURLUpdateListID, setPendingURLUpdateListID] = useState<
     string | null
   >(null);
+  const [focusAddItemInput, setfocusAddItemInput] = useState<() => void>(
+    () => () => {}
+  );
   const [isLoading, setIsLoading] = useState(false);
   const maxUnauthedLists = 3; // Maximum number of lists for unauthenticated users
   const { isAuthenticated } = useKindeAuth();
@@ -80,6 +85,7 @@ export default function ListsContextProvider({
   const handleListsMenuItemSelection = (id: string) => {
     setSelectedListID(id);
     updateURLListParam(id);
+    focusAddItemInput?.();
   };
 
   // Add a list
@@ -100,6 +106,7 @@ export default function ListsContextProvider({
         },
       ]);
       setPendingURLUpdateListID(id);
+      focusAddItemInput?.(); // Focus the Add Item input field
     }
   };
 
@@ -218,6 +225,8 @@ export default function ListsContextProvider({
         handleToggleItem,
         handleDeleteList,
         handleDeleteItem,
+        focusAddItemInput,
+        setfocusAddItemInput,
         isLoading,
       }}
     >
