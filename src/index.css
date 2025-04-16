@@ -4,8 +4,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  background: linear-gradient(to bottom, #f0ded9, #f7aa90);
-  /* background: linear-gradient(to bottom, #67e3cb, #4b81e5); */
+  background-color: #f8f0e6;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
