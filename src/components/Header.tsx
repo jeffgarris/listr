@@ -12,7 +12,7 @@ export default function Header() {
         {isAuthenticated ? (
           <>
             <span className="flex items-center text-[12px] text-gray-500 font-semibold">
-              Logged in as {user?.email}!
+              Logged in as {user?.givenName} {user?.familyName}!
             </span>
             <Button onClick={logout}>Log Out</Button>
           </>

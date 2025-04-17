@@ -12,12 +12,6 @@ createRoot(document.getElementById("root")!).render(
       domain="https://jeffgarris.kinde.com"
       redirectUri={window.location.origin}
       logoutUri={window.location.origin}
-      callbacks={{
-        onSuccess: (user, state, context) =>
-          console.log("onSuccess", user, state, context),
-        onError: (error, state, context) =>
-          console.log("onError", error, state, context),
-      }}
     >
       <ListsContextProvider>
         <App />
