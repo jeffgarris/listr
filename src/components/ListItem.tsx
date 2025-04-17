@@ -10,7 +10,7 @@ type ListItemProps = {
 export default function ListItem({ id, text, completed }: ListItemProps) {
   const { handleToggleItem, handleDeleteItem } = useListsContext();
   return (
-    <li className="flex px-5 py-2 items-center justify-between border-b border-b-gray-200">
+    <li className="flex px-5 py-2 items-center justify-between border-b border-b-gray-200 text-gray-700">
       <span
         onClick={(e) => {
           e.stopPropagation();
