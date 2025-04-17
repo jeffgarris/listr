@@ -5,7 +5,7 @@ export default function Header() {
   const { login, logout, register, user, isAuthenticated } = useKindeAuth();
   return (
     <header className="flex justify-between items-center px-5 py-4 border-b border-b-gray-200 ">
-      <h1 className="text-2xl font-bold text-gray-800 uppercase">
+      <h1 className="text-2xl font-bold text-gray-700 uppercase">
         <b>Listr</b>
       </h1>
       <div className="flex space-x-4">
