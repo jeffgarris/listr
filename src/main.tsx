@@ -10,8 +10,14 @@ createRoot(document.getElementById("root")!).render(
     <KindeProvider
       clientId="fc60bdb5c1ed4ad4979220b576f13a9e"
       domain="https://jeffgarris.kinde.com"
-      redirectUri="http://localhost:5174"
-      logoutUri="http://localhost:5174"
+      redirectUri={window.location.origin}
+      logoutUri={window.location.origin}
+      callbacks={{
+        onSuccess: (user, state, context) =>
+          console.log("onSuccess", user, state, context),
+        onError: (error, state, context) =>
+          console.log("onError", error, state, context),
+      }}
     >
       <ListsContextProvider>
         <App />
