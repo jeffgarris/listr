@@ -26,7 +26,6 @@ type TListsContext = {
   handleToggleItem: (id: string) => void;
   handleDeleteList: (id: string) => void;
   handleDeleteItem: (id: string) => void;
-  isLoading: boolean;
   focusAddItemInput?: () => void;
   setfocusAddItemInput?: (fn: () => void) => void;
 };
@@ -58,7 +57,6 @@ export default function ListsContextProvider({
   const [focusAddItemInput, setfocusAddItemInput] = useState<() => void>(
     () => () => {}
   );
-  const [isLoading, setIsLoading] = useState(false);
   const maxUnauthedLists = 3; // Maximum number of lists for unauthenticated users
   const { isAuthenticated } = useKindeAuth();
 
@@ -227,7 +225,6 @@ export default function ListsContextProvider({
         handleDeleteItem,
         focusAddItemInput,
         setfocusAddItemInput,
-        isLoading,
       }}
     >
       {children}
