@@ -80,6 +80,15 @@ export default function ListsContextProvider({
 
   // ----- Event handlers / actions ----- //
 
+  // Get the value of the "list" URL parameter
+  const getURLListParam = () => {
+    const url = new URL(window.location.href);
+    const listParam = url.searchParams.get("list");
+    if (listParam) {
+      return listParam;
+    }
+  };
+
   const handleListsMenuItemSelection = (id: string) => {
     setSelectedListID(id);
     updateURLListParam(id);
@@ -189,25 +198,29 @@ export default function ListsContextProvider({
 
   // Remove URL "list" param if all lists are deleted
   useEffect(() => {
-    if (lists.length === 0) {
+    const listParam = getURLListParam();
+
+    if (listParam && lists.length === 0) {
       removeListQueryParam();
     }
   }, [lists]);
 
-  // Get the value of the "list" URL parameter
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const listParam = urlParams.get("list");
+    const listParam = getURLListParam();
 
-    if (listParam) {
-      const matchingList = lists.find((list) => list.name === listParam);
-      // If the "list" param matches an existing list name, set that list as the selected list
-      // Else, set the first list as the selected list
-      if (matchingList) {
-        setSelectedListID(matchingList.id);
-      } else {
-        setSelectedListID(lists[0]?.id); // Set to the first list if no list is set in URL
-        updateURLListParam(lists[0].id); // Update URL to the first list if no list is set in URL
+    if (!listParam && lists.length > 0) {
+      setSelectedListID(lists[0].id); // Set to the first list if no list is set in URL
+      updateURLListParam(lists[0].id); // Update URL to the first list if no list is set in URL
+    } else if (listParam && lists.length > 0) {
+      if (listParam) {
+        const matchingList = lists.find((list) => list.name === listParam);
+        // If the "list" param matches an existing list name, set that list as the selected list
+        if (matchingList) {
+          setSelectedListID(matchingList.id);
+        } else {
+          setSelectedListID(lists[0]?.id); // Set to the first list if no list is set in URL
+          updateURLListParam(lists[0].id); // Update URL to the first list if no list is set in URL
+        }
       }
     }
   }, [lists]);
