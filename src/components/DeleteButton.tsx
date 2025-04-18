@@ -1,5 +1,5 @@
 type DeleteButtonProps = {
-  id: string;
+  id?: string;
   onClick: (id: string) => void;
 };
 
@@ -8,7 +8,7 @@ export default function DeleteButton({ id, onClick }: DeleteButtonProps) {
     <button
       onClick={(e) => {
         e.stopPropagation();
-        onClick(id);
+        onClick(id ? id : "");
       }}
       className="text-[12px] cursor-pointer"
     >
