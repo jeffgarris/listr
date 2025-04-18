@@ -19,8 +19,12 @@ export default function Modal({}: ModalProps) {
   } = modalConfig;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div
+      onClick={hideModal}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    >
       <div
+        onClick={(e) => e.stopPropagation()}
         className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative transition-all duration-300 mt-12"
         style={{ animation: "slideIn 0.3s forwards" }}
       >
