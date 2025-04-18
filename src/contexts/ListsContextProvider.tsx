@@ -106,6 +106,7 @@ export default function ListsContextProvider({
           "You’ve reached the maximum number of free lists. Please log in to add more.",
         buttonPrimary: "Log In",
         onPrimaryClick: () => login(),
+        buttonSecondary: "Cancel",
       });
       return;
     } else {
@@ -162,14 +163,25 @@ export default function ListsContextProvider({
     );
   };
 
-  // Delete a list
-  const handleDeleteList = (id: string) => {
+  const confirmDeleteList = (id: string) => {
     setLists((prevLists) => prevLists.filter((list) => list.id !== id));
     setSelectedListID("");
     if (selectedListID === id) {
       setSelectedListID(lists[0].id); // Clear selected list if the deleted list is currently selected
       updateURLListParam(lists[0].id); // Update URL to the first list if the deleted list is currently selected
     }
+  };
+
+  // Delete a list
+  const handleDeleteList = (id: string) => {
+    showModal({
+      title: "Delete List?",
+      content:
+        "Are you sure you want to delete this list? This action cannot be undone.",
+      buttonPrimary: "Delete",
+      onPrimaryClick: () => confirmDeleteList(id),
+      buttonSecondary: "Cancel",
+    });
   };
 
   // Delete a list item

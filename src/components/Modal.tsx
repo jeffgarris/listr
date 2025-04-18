@@ -20,7 +20,22 @@ export default function Modal({}: ModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+      <div
+        className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative transition-all duration-300 mt-12"
+        style={{ animation: "slideIn 0.3s forwards" }}
+      >
+        <style>
+          {`
+        @keyframes slideIn {
+          from {
+            margin-top: 50px;
+          }
+          to {
+            margin-top: 0;
+          }
+        }
+          `}
+        </style>
         <div className="absolute top-2 right-4">
           <DeleteButton onClick={hideModal} />
         </div>
@@ -45,6 +60,7 @@ export default function Modal({}: ModalProps) {
                 onSecondaryClick?.();
                 hideModal();
               }}
+              buttonType="secondary"
             >
               {buttonSecondary}
             </Button>
