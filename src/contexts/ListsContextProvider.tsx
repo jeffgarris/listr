@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import CapitalizeFirstLetter from "../lib/utils";
 import { useEffect } from "react";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import { useModal } from "../contexts/ModalContext";
 
 type ListItem = {
   id: string;
@@ -49,6 +50,7 @@ type ListsContextProviderProps = {
 export default function ListsContextProvider({
   children,
 }: ListsContextProviderProps) {
+  const { showModal } = useModal();
   const [lists, setLists] = useState<Lists>(getInitialLists);
   const [selectedListID, setSelectedListID] = useState("");
   const [pendingURLUpdateListID, setPendingURLUpdateListID] = useState<
@@ -58,7 +60,7 @@ export default function ListsContextProvider({
     () => () => {}
   );
   const maxUnauthedLists = 3; // Maximum number of lists for unauthenticated users
-  const { isAuthenticated } = useKindeAuth();
+  const { login, isAuthenticated } = useKindeAuth();
 
   // Update the URL "list" param when a list is added or selected from the mmenu
   const updateURLListParam = (id: string) => {
@@ -98,9 +100,13 @@ export default function ListsContextProvider({
   // Add a list
   const handleAddList = (listName: string) => {
     if (lists.length >= maxUnauthedLists && !isAuthenticated) {
-      alert(
-        "You have reached the maximum number of lists. Please log in to add more."
-      );
+      showModal({
+        title: "List Limit Reached",
+        content:
+          "You’ve reached the maximum number of free lists. Please log in to add more.",
+        buttonPrimary: "Log In",
+        onPrimaryClick: () => login(),
+      });
       return;
     } else {
       const id = crypto.randomUUID();
