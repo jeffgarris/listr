@@ -60,6 +60,7 @@ export default function ListsContextProvider({
     () => () => {}
   );
   const maxUnauthedLists = 3; // Maximum number of lists for unauthenticated users
+  const maxUnauthedListItems = 5; // Maximum number of list items for unauthenticated users
   const { login, isAuthenticated } = useKindeAuth();
 
   // Update the URL "list" param when a list is added or selected from the mmenu
@@ -126,6 +127,21 @@ export default function ListsContextProvider({
 
   // Add an item to a list
   const handleAddItem = (itemText: string) => {
+    if (
+      lists.filter((list) => list.id === selectedListID)[0].items.length >=
+        maxUnauthedListItems &&
+      !isAuthenticated
+    ) {
+      showModal({
+        title: "List Item Limit Reached",
+        content:
+          "You’ve reached the maximum number of free items. Please log in to add more.",
+        buttonPrimary: "Log In",
+        onPrimaryClick: () => login(),
+        buttonSecondary: "Cancel",
+      });
+      return;
+    }
     setLists((prevLists) =>
       prevLists.map((list) => {
         if (list.id === selectedListID) {
