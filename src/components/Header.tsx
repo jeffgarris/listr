@@ -14,7 +14,9 @@ export default function Header() {
             <span className="flex items-center text-[12px] text-gray-500 font-semibold">
               Logged in as {user?.givenName} {user?.familyName}!
             </span>
-            <Button onClick={logout}>Log Out</Button>
+            <Button onClick={logout} buttonType="secondary">
+              Log Out
+            </Button>
           </>
         ) : (
           <>
