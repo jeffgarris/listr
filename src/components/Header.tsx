@@ -2,7 +2,7 @@ import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 import Button from "./Button";
 
 export default function Header() {
-  const { login, logout, register, user, isAuthenticated } = useKindeAuth();
+  const { login, logout, user, isAuthenticated } = useKindeAuth();
   return (
     <header className="flex justify-between items-center px-5 py-4 border-b border-b-gray-200 ">
       <h1 className="text-2xl font-bold text-gray-700 uppercase">
@@ -14,12 +14,13 @@ export default function Header() {
             <span className="flex items-center text-[12px] text-gray-500 font-semibold">
               Logged in as {user?.givenName} {user?.familyName}!
             </span>
-            <Button onClick={logout}>Log Out</Button>
+            <Button onClick={logout} buttonType="secondary">
+              Log Out
+            </Button>
           </>
         ) : (
           <>
             <Button onClick={login}>Log In</Button>
-            <Button onClick={register}>Sign Up</Button>
           </>
         )}
       </div>
