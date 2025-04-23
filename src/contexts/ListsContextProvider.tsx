@@ -1,6 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import CapitalizeFirstLetter from "../lib/utils";
-import { useEffect } from "react";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 import { useModal } from "../contexts/ModalContext";
 
@@ -21,6 +20,9 @@ type Lists = List[];
 type TListsContext = {
   lists: Lists;
   selectedListID: string;
+  menuOpen: boolean;
+  setMenuOpen: (open: boolean) => void;
+  isMobile: boolean;
   handleListsMenuItemSelection: (id: string) => void;
   handleAddList: (listName: string) => void;
   handleAddItem: (listItem: string) => void;
@@ -50,7 +52,9 @@ type ListsContextProviderProps = {
 export default function ListsContextProvider({
   children,
 }: ListsContextProviderProps) {
-  const { showModal } = useModal();
+  // ----- State ----- //
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [lists, setLists] = useState<Lists>(getInitialLists);
   const [selectedListID, setSelectedListID] = useState("");
   const [pendingURLUpdateListID, setPendingURLUpdateListID] = useState<
@@ -59,6 +63,11 @@ export default function ListsContextProvider({
   const [focusAddItemInput, setfocusAddItemInput] = useState<() => void>(
     () => () => {}
   );
+
+  // ----- Contexts ----- //
+  const { showModal } = useModal();
+
+  // ----- Variables ----- //
   const maxUnauthedLists = 3; // Maximum number of lists for unauthenticated users
   const maxUnauthedListItems = 5; // Maximum number of list items for unauthenticated users
   const { login, isAuthenticated } = useKindeAuth();
@@ -95,6 +104,9 @@ export default function ListsContextProvider({
   const handleListsMenuItemSelection = (id: string) => {
     setSelectedListID(id);
     updateURLListParam(id);
+    if (isMobile) {
+      setMenuOpen(false); // Close the menu on mobile when a list is selected
+    }
     focusAddItemInput?.();
   };
 
@@ -121,6 +133,9 @@ export default function ListsContextProvider({
         },
       ]);
       setPendingURLUpdateListID(id);
+      if (isMobile) {
+        setMenuOpen(false); // Close the menu on mobile when a list is selected
+      }
       focusAddItemInput?.(); // Focus the Add Item input field
     }
   };
@@ -217,6 +232,20 @@ export default function ListsContextProvider({
 
   // ----- Side effects ----- //
 
+  // Handle window resizing
+  useEffect(() => {
+    console.log("resizing");
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) {
+        setMenuOpen(false); // Reset on desktop
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Get lists from local storage
   useEffect(() => {
     localStorage.setItem("lists", JSON.stringify(lists));
@@ -264,6 +293,9 @@ export default function ListsContextProvider({
       value={{
         lists,
         selectedListID,
+        menuOpen,
+        setMenuOpen,
+        isMobile,
         handleListsMenuItemSelection,
         handleAddList,
         handleAddItem,

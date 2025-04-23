@@ -20,7 +20,9 @@ export default function AddListItemForm() {
       className="px-5 py-4 border-b border-b-gray-200"
       onSubmit={(e) => {
         e.preventDefault();
-        handleAddItem(itemText);
+        if (itemText.trim()) {
+          handleAddItem(itemText);
+        }
         setItemText("");
       }}
     >

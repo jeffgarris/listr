@@ -3,14 +3,16 @@ import { useListsContext } from "../lib/hooks";
 import Button from "./Button";
 
 export default function AddListForm() {
-  const { handleAddList } = useListsContext();
+  const { handleAddList, isMobile } = useListsContext();
   const [listName, setListName] = useState<string>("");
   return (
     <form
-      className="px-5 py-4"
+      className={`px-5 py-4 ${isMobile ? "mt-[30px]" : ""}`}
       onSubmit={(e) => {
         e.preventDefault();
-        handleAddList(listName);
+        if (listName.trim()) {
+          handleAddList(listName);
+        }
         setListName("");
       }}
     >

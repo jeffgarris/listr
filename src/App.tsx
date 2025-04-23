@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import List from "./components/List";
 import "./App.css";
@@ -6,21 +5,6 @@ import ListsMenu from "./components/ListsMenu";
 import AddListForm from "./components/AddListForm";
 
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
-      if (window.innerWidth >= 1024) {
-        setMenuOpen(false); // Reset on desktop
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <div className="w-full h-full flex flex-col rounded-[8px] shadow-md bg-white overflow-hidden">
       <Header />
