@@ -10,9 +10,9 @@ export default function DeleteButton({ id, onClick }: DeleteButtonProps) {
         e.stopPropagation();
         onClick(id ? id : "");
       }}
-      className="text-[12px] cursor-pointer"
+      className="text-[24px]/[16px] font-bold text-[#F56A3E] cursor-pointer"
     >
-      ❌
+      ×
     </button>
   );
 }
