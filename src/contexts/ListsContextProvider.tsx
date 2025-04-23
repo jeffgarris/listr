@@ -110,8 +110,9 @@ export default function ListsContextProvider({
     updateURLListParam(id);
     if (isMobile) {
       setMenuOpen(false); // Close the menu on mobile when a list is selected
+    } else {
+      focusAddItemInput?.();
     }
-    focusAddItemInput?.();
   };
 
   // Add a list
@@ -139,8 +140,9 @@ export default function ListsContextProvider({
       setPendingURLUpdateListID(id);
       if (isMobile) {
         setMenuOpen(false); // Close the menu on mobile when a list is selected
+      } else {
+        focusAddItemInput?.(); // Focus the Add Item input field
       }
-      focusAddItemInput?.(); // Focus the Add Item input field
     }
   };
 
