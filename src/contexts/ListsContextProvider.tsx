@@ -23,6 +23,7 @@ type TListsContext = {
   menuOpen: boolean;
   setMenuOpen: (open: boolean) => void;
   isMobile: boolean;
+  isMobileSmall: boolean;
   handleListsMenuItemSelection: (id: string) => void;
   handleAddList: (listName: string) => void;
   handleAddItem: (listItem: string) => void;
@@ -54,7 +55,8 @@ export default function ListsContextProvider({
 }: ListsContextProviderProps) {
   // ----- State ----- //
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobileSmall, setIsMobileSmall] = useState(window.innerWidth < 428);
   const [lists, setLists] = useState<Lists>(getInitialLists);
   const [selectedListID, setSelectedListID] = useState("");
   const [pendingURLUpdateListID, setPendingURLUpdateListID] = useState<
@@ -68,6 +70,8 @@ export default function ListsContextProvider({
   const { showModal } = useModal();
 
   // ----- Variables ----- //
+  const mobileBreakpoint = 768;
+  const mobileBreakpointSmall = 428;
   const maxUnauthedLists = 3; // Maximum number of lists for unauthenticated users
   const maxUnauthedListItems = 5; // Maximum number of list items for unauthenticated users
   const { login, isAuthenticated } = useKindeAuth();
@@ -234,10 +238,11 @@ export default function ListsContextProvider({
 
   // Handle window resizing
   useEffect(() => {
-    console.log("resizing");
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
-      if (window.innerWidth >= 1024) {
+      setIsMobile(window.innerWidth < mobileBreakpoint);
+      setIsMobileSmall(window.innerWidth < mobileBreakpointSmall);
+
+      if (window.innerWidth >= mobileBreakpoint) {
         setMenuOpen(false); // Reset on desktop
       }
     };
@@ -296,6 +301,7 @@ export default function ListsContextProvider({
         menuOpen,
         setMenuOpen,
         isMobile,
+        isMobileSmall,
         handleListsMenuItemSelection,
         handleAddList,
         handleAddItem,

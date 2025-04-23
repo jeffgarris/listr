@@ -11,7 +11,6 @@ function App() {
       <div className="flex h-full relative">
         <SideBar />
 
-        {/* Main content */}
         <div className="flex-1">
           <List />
         </div>

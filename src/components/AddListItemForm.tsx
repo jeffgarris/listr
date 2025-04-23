@@ -3,7 +3,7 @@ import { useListsContext } from "../lib/hooks";
 import Button from "./Button";
 
 export default function AddListItemForm() {
-  const { handleAddItem, setfocusAddItemInput } = useListsContext();
+  const { handleAddItem, setfocusAddItemInput, isMobile } = useListsContext();
   const [itemText, setItemText] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -26,7 +26,9 @@ export default function AddListItemForm() {
         setItemText("");
       }}
     >
-      <label className="flex items-center space-x-4">
+      <label
+        className={`flex ${isMobile ? "flex-col space-y-4" : "space-x-4"}`}
+      >
         <input
           ref={inputRef}
           type="text"
