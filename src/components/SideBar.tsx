@@ -7,6 +7,7 @@ export default function SideBar() {
   const { isMobile, menuOpen } = useListsContext();
   return (
     <div
+      onClick={(e) => e.stopPropagation()}
       className={`
             h-full border-r border-r-gray-200 bg-white transition-all duration-300 ease-in-out
             ${

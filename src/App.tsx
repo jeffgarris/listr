@@ -1,11 +1,16 @@
+import { useListsContext } from "./lib/hooks";
 import Header from "./components/Header";
 import List from "./components/List";
 import "./App.css";
 import SideBar from "./components/SideBar";
 
 function App() {
+  const { setMenuOpen } = useListsContext();
   return (
-    <div className="w-full h-full flex flex-col rounded-[8px] shadow-md bg-white overflow-hidden">
+    <div
+      onClick={() => setMenuOpen(false)}
+      className="w-full h-full flex flex-col rounded-[8px] shadow-md bg-white overflow-hidden"
+    >
       <Header />
 
       <div className="flex h-full relative">
