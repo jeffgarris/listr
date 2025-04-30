@@ -17,7 +17,7 @@ export default function AddListItemForm() {
 
   return (
     <form
-      className="px-5 py-4 border-b border-b-gray-200"
+      className="px-5 py-4"
       onSubmit={(e) => {
         e.preventDefault();
         if (itemText.trim()) {
@@ -34,7 +34,8 @@ export default function AddListItemForm() {
           type="text"
           value={itemText}
           onChange={(e) => setItemText(e.target.value)}
-          className="px-4 py-2 border border-gray-300 focus:border-[#F56A3E] bg-gray-50 rounded outline-0 transition-colors duration-200 ease-in-out"
+          placeholder="Add a new item"
+          className="flex-1 px-4 py-2 border border-transparent focus:border-[#F56A3E] bg-slate-100 rounded outline-0 transition-colors duration-200 ease-in-out"
         />
         <Button>Add Item</Button>
       </label>

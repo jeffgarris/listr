@@ -9,7 +9,7 @@ export default function SideBar() {
     <div
       onClick={(e) => e.stopPropagation()}
       className={`
-            h-full border-r border-r-gray-200 bg-white transition-all duration-300 ease-in-out
+            h-full border-r-5 border-r-[#f8f0e6] bg-white transition-all duration-300 ease-in-out
             ${
               isMobile
                 ? menuOpen

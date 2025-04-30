@@ -9,7 +9,7 @@ export default function Header() {
     <header
       className={`flex ${
         isMobile ? "flex-col" : "justify-between items-center"
-      } px-5 py-4 border-b border-b-gray-200`}
+      } px-5 py-4 border-b-5 border-b-[#f8f0e6]`}
     >
       <h1 className="text-2xl font-bold text-gray-700 uppercase">
         <b>Listr</b>

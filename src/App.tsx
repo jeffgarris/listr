@@ -9,7 +9,7 @@ function App() {
   return (
     <div
       onClick={() => setMenuOpen(false)}
-      className="w-full h-full flex flex-col rounded-[8px] shadow-md bg-white overflow-hidden"
+      className="w-full h-full flex flex-col rounded-[8px] bg-white overflow-hidden"
     >
       <Header />
 
