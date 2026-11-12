@@ -3,17 +3,17 @@ import { useListsContext } from "../lib/hooks";
 import Button from "./Button";
 
 export default function AddListItemForm() {
-  const { handleAddItem, setfocusAddItemInput, isMobile } = useListsContext();
+  const { handleAddItem, setFocusAddItemInput, isMobile } = useListsContext();
   const [itemText, setItemText] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (setfocusAddItemInput) {
-      setfocusAddItemInput(() => () => {
+    if (setFocusAddItemInput) {
+      setFocusAddItemInput(() => () => {
         inputRef.current?.focus();
       });
     }
-  }, [setfocusAddItemInput]);
+  }, [setFocusAddItemInput]);
 
   return (
     <form

@@ -31,7 +31,7 @@ type TListsContext = {
   handleDeleteList: (id: string) => void;
   handleDeleteItem: (id: string) => void;
   focusAddItemInput?: () => void;
-  setfocusAddItemInput?: (fn: () => void) => void;
+  setFocusAddItemInput?: (fn: () => void) => void;
 };
 
 export const ListsContext = createContext<TListsContext | null>(null);
@@ -62,8 +62,8 @@ export default function ListsContextProvider({
   const [pendingURLUpdateListID, setPendingURLUpdateListID] = useState<
     string | null
   >(null);
-  const [focusAddItemInput, setfocusAddItemInput] = useState<() => void>(
-    () => () => {}
+  const [focusAddItemInput, setFocusAddItemInput] = useState<() => void>(
+    () => () => {},
   );
 
   // ----- Contexts ----- //
@@ -179,7 +179,7 @@ export default function ListsContextProvider({
           };
         }
         return list;
-      })
+      }),
     );
   };
 
@@ -191,12 +191,12 @@ export default function ListsContextProvider({
           return {
             ...list,
             items: list.items.map((item) =>
-              item.id === id ? { ...item, completed: !item.completed } : item
+              item.id === id ? { ...item, completed: !item.completed } : item,
             ),
           };
         }
         return list;
-      })
+      }),
     );
   };
 
@@ -232,7 +232,7 @@ export default function ListsContextProvider({
           };
         }
         return list;
-      })
+      }),
     );
   };
 
@@ -311,7 +311,7 @@ export default function ListsContextProvider({
         handleDeleteList,
         handleDeleteItem,
         focusAddItemInput,
-        setfocusAddItemInput,
+        setFocusAddItemInput,
       }}
     >
       {children}
