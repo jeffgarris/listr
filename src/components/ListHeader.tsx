@@ -10,7 +10,10 @@ export default function ListHeader() {
       {/* Display a call to action for the user to add their first list if thereare no lists, otherwise display the name of the selected list. */}
       {lists.length === 0 ? (
         <p className="ml-4 text-[12pt] font-semibold italic text-gray-400">
-          <span>←</span> Add your first list!
+          <span style={{ display: "inline-block", marginBottom: "2px" }}>
+            ←
+          </span>{" "}
+          Add your first list!
         </p>
       ) : (
         <h2 className="ml-2 uppercase">
